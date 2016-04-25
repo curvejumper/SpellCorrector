@@ -13,6 +13,14 @@ public class SpellCorrector {
         dictionary = new HashMap<>();
     }
 
+    /**
+     * 
+     * adds a string to dictionary as a correct spelling of a word
+     * if the word is already in the dictionary, increase its frequency
+     * in the dictionary
+     * 
+     * @param word - string to add to dictionary
+     */
     public void train(final String word) {
         // TODO(student): Implement your own logic to model spell corrector using
         // edit distance. This method will be called for every possible known valid
@@ -20,6 +28,13 @@ public class SpellCorrector {
         dictionary.put(word, dictionary.containsKey(word) ? dictionary.get(word) + 1 : 1);
     }
 
+    /**
+     * 
+     * Checks to see if a word is correctly or incorrectly spelled
+     * 
+     * @param mispelled_word - the possible misspelled word to correct
+     * @return - word that most closely resembles the misspelled_word
+     */
     public String correct(final String mispelled_word) {
         // TODO(student): Use the model learnt in above method and return correct
         // spelling for given word. Given a mispelled word, return your best
@@ -51,6 +66,13 @@ public class SpellCorrector {
         return possibleEdits.size() > 0 ? possibleEdits.get(Collections.max(possibleEdits.keySet())) : mispelled_word;
     }
 
+    /**
+     * 
+     * This method alters an assumed misspelled word into possible alternate spellings
+     * 
+     * @param word - word not in dictionary to manipulate 
+     * @return - ArrayList of possible edits to the word to make it resemble dictionary words
+     */
     private ArrayList<String> edits(String word) {
         ArrayList<String> result = new ArrayList<>();
         
