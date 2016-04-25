@@ -54,18 +54,21 @@ public class SpellCorrector {
     private ArrayList<String> edits(String word) {
         ArrayList<String> result = new ArrayList<>();
         for (int i = 0; i < word.length(); ++i) {
-            //adds substrings of the word
+            //adds substrings of the word **will not work well, gives word a
+            //a chance to be many other, incorrect, choices
             //result.add(word.substring(0, i));
+            
             //Removes single characters to see if that is a popular word
             result.add(word.substring(0, i) + word.substring(i + 1));
         }
         for (int i = 0; i < word.length() - 1; ++i) {
             //Removes two characters
 //            result.add(word.substring(0, i) + word.substring(i + 2));
+
             //Switches two characters to see if more popular word
             result.add(word.substring(0, i) + word.substring(i + 1, i + 2) + word.substring(i, i + 1) + word.substring(i + 2));
         }
-        //replaces a letter **seems to make it worst, probably making word appear as another, incorrect word
+        //replaces a letter **making it look more like another word, thus, increases incorrectness
 //        for (int i = 0; i < word.length(); i++) {
 //            for (char c = 'a'; c <= 'z'; c++) {
 //                    result.add(word.substring(0, i) + String.valueOf(c) + word.substring(i + 1));
