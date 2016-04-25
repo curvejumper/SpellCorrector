@@ -31,10 +31,14 @@ public class SpellCorrector {
         HashMap<Integer, String> possibleEdits = new HashMap<>();
         for (String s : list) {
             if (dictionary.containsKey(s)) {
+                //Put string from dictionary into the value section
+                //Insert the dictionary value into the key section
+//                System.out.println("Here is the possible value: " + s);
                 possibleEdits.put(dictionary.get(s), s);
             }
         }
         if (possibleEdits.size() > 0) {
+            //Return the higest key size. That will be the most likely edit
             return possibleEdits.get(Collections.max(possibleEdits.keySet()));
         }
         for (String s : list) {
@@ -50,6 +54,8 @@ public class SpellCorrector {
     private ArrayList<String> edits(String word) {
         ArrayList<String> result = new ArrayList<>();
         for (int i = 0; i < word.length(); ++i) {
+            //adds substrings of the word
+            //result.add(word.substring(0, i));
             //Removes single characters to see if that is a popular word
             result.add(word.substring(0, i) + word.substring(i + 1));
         }
