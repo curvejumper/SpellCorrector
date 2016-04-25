@@ -2,16 +2,15 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 
 public class SpellCorrector {
     // TODO(student): Feel free define private variables here to store whatever
     // you trained.
 
-    private final HashMap<String, Integer> dictionary = new HashMap<>();
+    private final HashMap<String, Integer> dictionary;
 
     SpellCorrector() {
-        // TODO(student): Contructor to initialize your data-structure
+        dictionary = new HashMap<>();
     }
 
     public void train(final String word) {
@@ -29,31 +28,33 @@ public class SpellCorrector {
             return mispelled_word;
         }
         ArrayList<String> list = edits(mispelled_word);
-        HashMap<Integer, String> candidates = new HashMap<>();
+        HashMap<Integer, String> possibleEdits = new HashMap<>();
         for (String s : list) {
             if (dictionary.containsKey(s)) {
-                candidates.put(dictionary.get(s), s);
+                possibleEdits.put(dictionary.get(s), s);
             }
         }
-        if (candidates.size() > 0) {
-            return candidates.get(Collections.max(candidates.keySet()));
+        if (possibleEdits.size() > 0) {
+            return possibleEdits.get(Collections.max(possibleEdits.keySet()));
         }
         for (String s : list) {
             for (String w : edits(s)) {
                 if (dictionary.containsKey(w)) {
-                    candidates.put(dictionary.get(w), w);
+                    possibleEdits.put(dictionary.get(w), w);
                 }
             }
         }
-        return candidates.size() > 0 ? candidates.get(Collections.max(candidates.keySet())) : mispelled_word;
+        return possibleEdits.size() > 0 ? possibleEdits.get(Collections.max(possibleEdits.keySet())) : mispelled_word;
     }
 
     private ArrayList<String> edits(String word) {
         ArrayList<String> result = new ArrayList<>();
         for (int i = 0; i < word.length(); ++i) {
+            //Removes single characters to see if that is a popular word
             result.add(word.substring(0, i) + word.substring(i + 1));
         }
         for (int i = 0; i < word.length() - 1; ++i) {
+            //Removes two characters to see if that is a more popular word
             result.add(word.substring(0, i) + word.substring(i + 1, i + 2) + word.substring(i, i + 1) + word.substring(i + 2));
         }
         for (int i = 0; i < word.length(); ++i) {
