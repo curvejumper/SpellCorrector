@@ -60,16 +60,20 @@ public class SpellCorrector {
             result.add(word.substring(0, i) + word.substring(i + 1));
         }
         for (int i = 0; i < word.length() - 1; ++i) {
-            //Removes two characters to see if that is a more popular word
+            //Removes two characters
+//            result.add(word.substring(0, i) + word.substring(i + 2));
+            //Switches two characters to see if more popular word
             result.add(word.substring(0, i) + word.substring(i + 1, i + 2) + word.substring(i, i + 1) + word.substring(i + 2));
         }
-        for (int i = 0; i < word.length(); ++i) {
-            for (char c = 'a'; c <= 'z'; ++c) {
-                result.add(word.substring(0, i) + String.valueOf(c) + word.substring(i + 1));
-            }
-        }
+        //replaces a letter **seems to make it worst, probably making word appear as another, incorrect word
+//        for (int i = 0; i < word.length(); i++) {
+//            for (char c = 'a'; c <= 'z'; c++) {
+//                    result.add(word.substring(0, i) + String.valueOf(c) + word.substring(i + 1));
+//            }
+//        }
+        //adds an extra letter
         for (int i = 0; i <= word.length(); ++i) {
-            for (char c = 'a'; c <= 'z'; ++c) {
+            for (char c = 'a'; c <= 'z'; c++) {
                 result.add(word.substring(0, i) + String.valueOf(c) + word.substring(i));
             }
         }
